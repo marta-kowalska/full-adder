@@ -17,44 +17,28 @@ def get_bit(number, bit_position):
 def set_bit(number, bit_position):
     mask = 1 << bit_position
     number = number | mask
-    return number 
-
-
-'''
-XOR
-a b o
-0 0 0
-0 1 1
-1 0 1
-1 1 0
-'''
-
-
+    return number
 
 
 def get_number(number_bits):
-    number_str = ''
-    for bit in number_bits:
-        number_str += str(bit)
+    number_str = ''.join(str(digit) for digit in number_bits)
     return int(number_str, 2)
 
 
 def add(a, b):
     result = []
     carry = 0
-    bit_a = get_bit(a, 0)
-    bit_b = get_bit(b, 0)
-    while(carry or bit_a or bit_b):
-        sum_bits = get_sum(bit_a, bit_b, carry)
-        carry = get_carry(bit_a, bit_b, carry)
-        result.insert(0, sum_bits)
-        a = a >> 1
-        b = b >> 1
+    while(carry or a or b):
         bit_a = get_bit(a, 0)
         bit_b = get_bit(b, 0)
+        sum_bit = get_sum(bit_a, bit_b, carry)
+        carry = get_carry(bit_a, bit_b, carry)
+        a = a >> 1
+        b = b >> 1
+        result.insert(0, sum_bit)
     return get_number(result)
 
 
 
-
-print(add(7, 11))
+if __name__ == '__main__':
+    print(add(3, 5))
